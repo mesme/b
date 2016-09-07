@@ -14,19 +14,30 @@ class Bee {
     public $life_points;
     public $deduct_points;
     public $alive = true;
+    private $remaining;
 
     public function __construct( $life, $deduct)
     {
-        $this->life_points = $life;
+        $this->remaining = $this->life_points = $life;
         $this->deduct_points = $deduct;
     }
 
     public function hit()
     {
-       $this->life_points =  $this->life_points - $this->deduct_points;
-       if($this->life_points <= 0){
+       $this->remaining =  $this->remaining - $this->deduct_points;
+       if($this->remaining <= 0){
            $this->alive = false;
        }
     }
+
+    /**
+     * @return mixed
+     */
+    public function getRemaining()
+    {
+        return $this->remaining;
+    }
+
+
 
 }
