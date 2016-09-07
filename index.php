@@ -26,8 +26,25 @@ if(!isset($_SESSION['game_started']) || $_SESSION['game_started'] === false) {
 }
 
 if(isset($_GET['hit'])){
+    $random = rand(1, 14);
+    if($random === 1){
+        $_SESSION['queen']->hit();
+        if($_SESSION['queen']->alive === false){
+            session_destroy();
+            header('Location: /');
+            exit;
+        }
+    } else if($random > 1 && $random < 7){
+        $random = $random - 2;
+        $_SESSION['workers'][$random]->hit();
+    } else {
+        $random = $random - 7;
+        $_SESSION['drones'][$random]->hit();
+    }
     $_SESSION['game_started'] = true;
-} ?>
+} else {
+    session_destroy();
+}?>
 
 <table>
     <tr>

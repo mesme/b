@@ -24,6 +24,9 @@ class Bee {
 
     public function hit()
     {
+       if($this->remaining < 0){
+           return false;
+       }
        $this->remaining =  $this->remaining - $this->deduct_points;
        if($this->remaining <= 0){
            $this->alive = false;
