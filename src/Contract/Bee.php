@@ -11,40 +11,22 @@ namespace Bee\PHP\Test\Contract;
 
 class Bee {
 
-    private $life_points;
-    private $deduct_points;
-    private $alive;
+    public $life_points;
+    public $deduct_points;
+    public $alive = true;
 
-    function __construct( $life, $deduct, $alive)
+    public function __construct( $life, $deduct)
     {
         $this->life_points = $life;
         $this->deduct_points = $deduct;
-        $this->alive = $alive;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getLifePoints()
+    public function hit()
     {
-        return $this->life_points;
+       $this->life_points =  $this->life_points - $this->deduct_points;
+       if($this->life_points <= 0){
+           $this->alive = false;
+       }
     }
-
-    /**
-     * @return mixed
-     */
-    public function getDeductPoints()
-    {
-        return $this->deduct_points;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAlive()
-    {
-        return $this->alive;
-    }
-
 
 }
