@@ -1,0 +1,33 @@
+{
+  "name": "bee/test",
+  "description": "PHP Test",
+  "minimum-stability": "dev",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Aswin Sundaram",
+      "email": "aswinsundaram@gmail.com"
+    }
+  ],
+  "require-dev": {
+    "sebastian/phpcpd": "*",
+    "phpunit/phpunit": "@stable",
+    "phpmd/phpmd": "@stable",
+    "pdepend/pdepend": "2.0.*",
+    "theseer/phpdox": "@stable",
+    "phploc/phploc": "*",
+    "squizlabs/php_codesniffer": "*"
+  },
+
+  "config" : { "bin-dir" : "bin"},
+  "autoload" : {
+    "psr-4": {
+      "Bee\\PHP\\Test\\": "src"
+    }
+  },
+  "autoload-dev" : {
+    "psr-4": {
+      "Bee\\Tests\\PHP\\": "tests"
+    }
+  }
+}
