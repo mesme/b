@@ -67,4 +67,4 @@ echo '</table>';
 ?>
 
 
-<a href="/?hit=1">Hit</a>
+<a href="/?hit=1" alt="hit">Hit</a>
