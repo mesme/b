@@ -4,83 +4,21 @@ require_once 'vendor/autoload.php';
 
 session_start();
 
-use Bee\PHP\Test\Model\Queen;
-use Bee\PHP\Test\Model\Drone;
-use Bee\PHP\Test\Model\Worker;
+use Bee\PHP\Test\Service\Api;
 
-if(!isset($_SESSION['game_started']) || $_SESSION['game_started'] === false) {
-    $queen = new Queen(100, 8);
 
-    $workers = $drones = [];
+$api = new Api($_SESSION);
 
-    for ($i = 0; $i < 5; $i++) {
-        $workers[] = new Worker(75, 10);
-    }
 
-    for ($j = 0; $j < 8; $j++) {
-        $drones[] = new Drone(50, 12);
-    }
-    $_SESSION['queen'] = $queen;
-    $_SESSION['workers'] = $workers;
-    $_SESSION['drones'] = $drones;
-}
-
-if(isset($_GET['hit'])){
-    $random = rand(1, 14);
-    if($random === 1){
-        $_SESSION['queen']->hit();
-        if($_SESSION['queen']->alive === false){
-            session_destroy();
-            header('Location: /');
-            exit;
-        }
-    } else if($random > 1 && $random < 7){
-        $random = $random - 2;
-        $_SESSION['workers'][$random]->hit();
-    } else {
-        $random = $random - 7;
-        $_SESSION['drones'][$random]->hit();
-    }
-    $_SESSION['game_started'] = true;
+if (isset($_GET['hit'])) {
+    $api->play();
 } else {
-    session_destroy();
-}?>
+    $api->endGame();
+} ?>
 
-<table>
-    <tr>
-        <td>Type</td>
-        <td>Total</td>
-        <td>Remaining</td>
-        <td>Alive?</td>
-    </tr>
+<?php
+$api->showPoints();
+?>
 
-<?php if(!empty($_SESSION['queen'])) { ?>
-    <tr>
-        <td>Queen</td>
-        <td><?=$_SESSION['queen']->life_points;?></td>
-        <td><?=$_SESSION['queen']->getRemaining();?></td>
-        <td><?=$_SESSION['queen']->alive;?></td>
-    </tr>
-<? } ?>
-<?php if(!empty($_SESSION['workers'])) { ?>
-    <?php foreach($_SESSION['workers'] as $worker) { ?>
-        <tr>
-            <td>Worker</td>
-            <td><?=$worker->life_points;?></td>
-            <td><?=$worker->getRemaining();?></td>
-            <td><?=$worker->alive;?></td>
-        </tr>
-    <? } ?>
-<? } ?>
-<?php if(!empty($_SESSION['drones'])) { ?>
-    <?php foreach($_SESSION['drones'] as $drone) { ?>
-        <tr>
-            <td>Drone</td>
-            <td><?=$drone->life_points;?></td>
-            <td><?=$drone->getRemaining();?></td>
-            <td><?=$drone->alive;?></td>
-        </tr>
-    <? } ?>
-<? } ?>
-</table>
+
 <a href="/?hit=1">Hit</a>
