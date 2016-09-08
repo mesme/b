@@ -31,10 +31,14 @@ class Bee implements Contract {
         if($this->remaining < 0){
             return false;
         }
+
         $this->remaining =  $this->remaining - $this->deduct_points;
+
         if($this->remaining <= 0){
             $this->alive = false;
         }
+
+        return true;
     }
 
     /**
@@ -47,7 +51,7 @@ class Bee implements Contract {
 
     public function getType()
     {
-        return $this->type->getName();
+        return $this->type;
     }
 
 
