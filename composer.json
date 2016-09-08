@@ -16,7 +16,8 @@
     "pdepend/pdepend": "2.0.*",
     "theseer/phpdox": "@stable",
     "phploc/phploc": "*",
-    "squizlabs/php_codesniffer": "*"
+    "squizlabs/php_codesniffer": "*",
+    "phpspec/prophecy": "~v1.6.1"
   },
 
   "config" : { "bin-dir" : "bin"},

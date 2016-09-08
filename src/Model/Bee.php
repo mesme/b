@@ -28,7 +28,7 @@ class Bee implements Contract {
 
     public function hit()
     {
-        if($this->remaining < 0){
+        if($this->remaining <= 0){
             return false;
         }
 
